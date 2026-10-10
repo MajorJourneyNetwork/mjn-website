@@ -5,27 +5,78 @@
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1">
-
   <title>Nexveil Concord | Grand Lobby</title>
-
-  <!-- Shared MJN stylesheet -->
   <link rel="stylesheet" href="/css/style.css">
+
+  <style>
+    .reception {
+      margin: 24px auto;
+      padding: 24px;
+      max-width: 480px;
+      border: 1px solid var(--mjn-gold);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.75);
+    }
+    .npc-name {
+      color: var(--mjn-purple);
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .dialogue {
+      line-height: 1.8;
+      min-height: 60px;
+    }
+  </style>
 </head>
 
 <body class="lobby-page">
   <main class="lobby-content">
     <h1>Nexveil Grand Lobby</h1>
-
     <p>Welcome to Nexveil Concord</p>
 
-    <p>
-      Our reception hall is currently
-      under preparation.
-    </p>
+    <section class="reception">
+      <p>PHOENICERIS RECEPTION</p>
+      <div class="npc-name" id="npc-name"></div>
+
+      <p class="dialogue" id="npc-dialogue">
+        ยินดีต้อนรับสู่ Nexveil Concord ครับ!
+      </p>
+
+      <button class="mjn-button"
+              id="talk-button" type="button">
+        พูดคุย
+      </button>
+    </section>
 
     <a href="/" class="mjn-button">
       ← Return to Veilgate
     </a>
   </main>
+
+  <script src="/js/lobby.js"></script>
+  <script>
+    const npc = getReceptionNPC();
+
+    document.getElementById("npc-name").textContent =
+      npc.name;
+
+    const dialogues = [
+      "ยินดีต้อนรับสู่ Nexveil Concord ครับ!",
+      "ที่นี่คือจุดเริ่มต้นของการเดินทางสู่ Lethyra",
+      "หากต้องการข้อมูลเพิ่มเติม แวะฝ่ายประชาสัมพันธ์ได้เลยครับ",
+      "เหล่า Wayfarers กำลังรอพบผู้เดินทางอยู่นะครับ!"
+    ];
+
+    let dialogueIndex = 0;
+
+    document.getElementById("talk-button")
+      .addEventListener("click", () => {
+        dialogueIndex =
+          (dialogueIndex + 1) % dialogues.length;
+
+        document.getElementById("npc-dialogue")
+          .textContent = dialogues[dialogueIndex];
+      });
+  </script>
 </body>
 </html>
